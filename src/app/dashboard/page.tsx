@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center space-y-6">
+      <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center space-y-6">
         <div className="relative">
           <div className="absolute inset-0 bg-indigo-500 rounded-full blur-xl opacity-20 animate-pulse"></div>
           <Loader2 className="w-12 h-12 text-indigo-600 animate-spin relative z-10" />
@@ -98,18 +98,18 @@ export default function Dashboard() {
   const isActive = profile?.subscription_status === 'active';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50/60 via-slate-50 to-purple-50/60 p-4 sm:p-6 lg:p-10 font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50/60 via-slate-50 to-purple-50/60 p-4 sm:p-6 lg:p-10 font-sans selection:bg-indigo-500 selection:text-white">
         
       <div className="max-w-6xl mx-auto space-y-8 lg:space-y-10">
         
         {/* HERO SECTION - Modern Gradient & Glowing Orbs */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-slate-900 text-white p-8 sm:p-12 rounded-[2rem] shadow-2xl flex flex-col lg:flex-row justify-between items-center gap-10 border border-white/10 group transition-all duration-500 hover:shadow-indigo-900/20 hover:shadow-3xl">
+        <div className="relative overflow-hidden bg-linear-to-br from-gray-900 via-indigo-950 to-slate-900 text-white p-8 sm:p-12 rounded-[2rem] shadow-2xl flex flex-col lg:flex-row justify-between items-center gap-10 border border-white/10 group transition-all duration-500 hover:shadow-indigo-900/20 hover:shadow-3xl">
           {/* Animated background blobs */}
           <div className="absolute -top-20 -right-20 w-96 h-96 bg-indigo-500 rounded-full mix-blend-screen filter blur-[120px] opacity-30 group-hover:opacity-50 transition-opacity duration-700 animate-pulse"></div>
           <div className="absolute -bottom-32 -left-20 w-96 h-96 bg-fuchsia-600 rounded-full mix-blend-screen filter blur-[120px] opacity-30 group-hover:opacity-50 transition-opacity duration-700 animate-pulse delay-75"></div>
           
           <div className="relative z-10 text-center lg:text-left w-full lg:w-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-indigo-200">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-linear-to-r from-white to-indigo-200">
               Welcome back!
             </h1>
             <div className="flex items-center justify-center lg:justify-start gap-3 mt-4">
@@ -141,9 +141,9 @@ export default function Dashboard() {
               <button 
                 onClick={() => handleSubscribe('yearly')} 
                 disabled={checkoutLoading !== null}
-                className="group/btn relative overflow-hidden px-8 py-4 bg-gradient-to-r from-indigo-500 to-violet-600 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:-translate-y-1 active:translate-y-0 shadow-xl flex items-center justify-center gap-3 border border-indigo-400/50 disabled:opacity-70 disabled:hover:transform-none w-full sm:w-auto"
+                className="group/btn relative overflow-hidden px-8 py-4 bg-linear-to-r from-indigo-500 to-violet-600 text-white rounded-2xl font-bold transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] hover:-translate-y-1 active:translate-y-0 shadow-xl flex items-center justify-center gap-3 border border-indigo-400/50 disabled:opacity-70 disabled:hover:transform-none w-full sm:w-auto"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-violet-600 to-indigo-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative z-10 flex items-center gap-3">
                   {checkoutLoading === 'yearly' ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -151,7 +151,7 @@ export default function Dashboard() {
                     <>
                       <Sparkles className="w-5 h-5 text-indigo-200 group-hover/btn:text-white transition-colors animate-pulse" />
                       Yearly Plan
-                      <span className="absolute -top-5 -right-5 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-full shadow-lg transform rotate-12 group-hover/btn:rotate-6 group-hover/btn:scale-110 transition-all duration-300">
+                      <span className="absolute -top-5 -right-5 bg-linear-to-r from-rose-500 to-pink-500 text-white text-[10px] uppercase font-black px-3 py-1.5 rounded-full shadow-lg transform rotate-12 group-hover/btn:rotate-6 group-hover/btn:scale-110 transition-all duration-300">
                         Save 20%
                       </span>
                     </>
@@ -168,7 +168,7 @@ export default function Dashboard() {
 {/* Charity Card */}
           <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
             <div>
-              <div className="w-14 h-14 bg-gradient-to-br from-rose-100 to-rose-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm border border-rose-100/50">
+              <div className="w-14 h-14 bg-linear-to-br from-rose-100 to-rose-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm border border-rose-100/50">
                 <HeartHandshake className="w-7 h-7 text-rose-500" />
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-3 tracking-tight">Charity Impact</h2>
@@ -189,7 +189,7 @@ export default function Dashboard() {
           {/* Participation Card */}
           <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
             <div>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 shadow-sm border border-blue-100/50">
+              <div className="w-14 h-14 bg-linear-to-br from-blue-100 to-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 shadow-sm border border-blue-100/50">
                 <CalendarDays className="w-7 h-7 text-blue-600" />
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-5 tracking-tight">Participation</h2>
@@ -209,7 +209,7 @@ export default function Dashboard() {
           {/* Winnings Card */}
           <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
             <div>
-              <div className="w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm border border-amber-100/50">
+              <div className="w-14 h-14 bg-linear-to-br from-amber-100 to-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm border border-amber-100/50">
                 <Trophy className="w-7 h-7 text-amber-500" />
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-5 tracking-tight">Winnings</h2>
@@ -241,7 +241,7 @@ export default function Dashboard() {
           ) : (
             <div className="relative overflow-hidden bg-white/40 backdrop-blur-md p-12 rounded-[2rem] text-center border-2 border-dashed border-gray-300 hover:border-indigo-400 shadow-sm flex flex-col items-center justify-center gap-6 group transition-all duration-500">
               {/* Subtle animated background inside the locked state */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               
               <div className="relative z-10 w-20 h-20 bg-gray-100/80 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-indigo-50 group-hover:scale-110 transition-all duration-500 shadow-inner">
                 <Lock className="w-8 h-8 text-gray-400 group-hover:text-indigo-500 transition-colors" />

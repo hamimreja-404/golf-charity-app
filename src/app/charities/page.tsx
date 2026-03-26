@@ -65,7 +65,7 @@ export default function CharityDirectory() {
     <div className="min-h-screen bg-[#F8F9FA] font-sans selection:bg-rose-500 selection:text-white pb-20">
       
       {/* HERO SECTION */}
-      <div className="relative bg-gradient-to-b from-gray-900 via-slate-900 to-gray-900 pt-32 pb-24 px-6 overflow-hidden">
+      <div className="relative bg-linear-to-b from-gray-900 via-slate-900 to-gray-900 pt-32 pb-24 px-6 overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full opacity-30 pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-rose-500 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
@@ -77,7 +77,7 @@ export default function CharityDirectory() {
             <Heart className="w-4 h-4 fill-rose-400 text-rose-400" />
             Make an Impact
           </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400 tracking-tight mb-6">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-white via-gray-100 to-gray-400 tracking-tight mb-6">
             Play for a Purpose
           </h1>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -164,7 +164,7 @@ export default function CharityDirectory() {
                       alt={charity.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-gray-900/90 via-gray-900/40 to-transparent"></div>
                     
                     {charity.is_featured && (
                       <div className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 backdrop-blur-md">
@@ -188,7 +188,7 @@ export default function CharityDirectory() {
                       <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 mb-6 group-hover:bg-rose-50/30 transition-colors">
                         <h4 className="text-xs font-black text-gray-400 uppercase tracking-wider mb-3">Upcoming Event</h4>
                         <div className="flex items-start gap-3">
-                          <div className="bg-white p-2 rounded-lg shadow-sm text-center min-w-[3rem]">
+                          <div className="bg-white p-2 rounded-lg shadow-sm text-center min-w-12">
                             <span className="block text-xs font-bold text-rose-500 uppercase">{event.date.split(' ')[0]}</span>
                             <span className="block text-lg font-black text-gray-900 leading-none mt-0.5">{event.date.split(' ')[1].replace(',', '')}</span>
                           </div>

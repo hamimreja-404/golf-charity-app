@@ -90,7 +90,7 @@ export default function CharityManager({
       <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-300">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-rose-50 to-pink-50 p-6 sm:p-8 border-b border-rose-100 flex justify-between items-start">
+        <div className="bg-linear-to-r from-rose-50 to-pink-50 p-6 sm:p-8 border-b border-rose-100 flex justify-between items-start">
           <div>
             <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-2">
               <Heart className="w-6 h-6 text-rose-500 fill-rose-500" />
@@ -152,7 +152,7 @@ export default function CharityManager({
                         : 'border-gray-100 bg-white hover:border-gray-300 hover:bg-gray-50'
                     }`}
                   >
-                    <div className={`mt-1 flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                    <div className={`mt-1 shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                       selectedId === charity.id ? 'border-rose-500 bg-rose-500' : 'border-gray-300'
                     }`}>
                       {selectedId === charity.id && <CheckCircle2 className="w-4 h-4 text-white" />}
