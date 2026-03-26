@@ -129,7 +129,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-rose-200 selection:text-rose-900 overflow-hidden flex flex-col lg:flex-row items-center justify-center gap-10 p-6 relative">
       
       {/* Soft Animated Mesh Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none fixed">
+      <div className="inset-0 z-0 overflow-hidden pointer-events-none fixed">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,var(--tw-gradient-stops))] from-indigo-100 via-slate-50 to-rose-50 opacity-80" />
         <motion.div 
           animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0], opacity: [0.4, 0.6, 0.4] }} 
