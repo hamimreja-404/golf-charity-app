@@ -529,7 +529,7 @@ export default function AdminDashboard() {
                 className="group relative bg-rose-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-rose-700 transition-all shadow-xl shadow-rose-200 active:scale-95 disabled:opacity-50 flex items-center gap-3"
               >
                 <AlertTriangle className="w-6 h-6" />
-                Force Jackpot Win
+                Force Win
               </button>
             </div>
           </div>

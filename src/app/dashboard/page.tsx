@@ -171,17 +171,38 @@ export default function Dashboard() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-20 max-w-6xl mx-auto px-6 pt-6 mb-10">
+<nav className="relative z-20 max-w-6xl mx-auto px-6 pt-6 mb-10">
         <div className="bg-white/60 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-16 rounded-full flex items-center justify-between px-6">
+          
+          {/* Left Side: Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center shadow-inner shadow-rose-300 group-hover:scale-105 transition-transform">
               <Heart className="w-4 h-4 text-white fill-white" />
             </div>
             <span className="font-extrabold text-lg tracking-tight text-slate-900 hidden sm:block">ImpactClub</span>
           </Link>
-          <button onClick={handleSignOut} className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-rose-600 transition-colors">
-            Sign Out <LogOut className="w-4 h-4" />
-          </button>
+
+          {/* Right Side: Actions Grouped Together */}
+          <div className="flex items-center gap-6">
+            
+            {/* NEW: Admin Button (Optional: Wrap this in a profile?.role === 'admin' check!) */}
+            <Link 
+              href="/admin" 
+              className="text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-2"
+            >
+              Admin Center
+            </Link>
+
+            {/* Separator Line */}
+            <div className="w-px h-4 bg-slate-200 hidden sm:block"></div>
+
+            {/* Existing Sign Out Button */}
+            <button onClick={handleSignOut} className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-rose-600 transition-colors">
+              Sign Out <LogOut className="w-4 h-4" />
+            </button>
+            
+          </div>
+
         </div>
       </nav>
 

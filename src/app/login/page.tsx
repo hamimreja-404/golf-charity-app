@@ -5,7 +5,35 @@ import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Loader2, ArrowLeft, Mail, Lock, User, Shield, ChevronDown } from 'lucide-react'
+import { Heart, Loader2, ArrowLeft, Mail, Lock, User, Shield, ChevronDown, Users, Zap } from 'lucide-react'
+
+// 💡 ADD YOUR DUMMY DATA HERE 💡
+const dummyAccounts = [
+  { 
+    id: 1, 
+    name: 'Sabnam', 
+    email: 'sabnam@gmail.com', 
+    password: '123456', 
+    role: 'admin',
+    description: ''
+  },
+  { 
+    id: 2, 
+    name: 'Lina', 
+    email: 'lina@gmail.com', 
+    password: '123456', 
+    role: 'subscriber',
+    description: ''
+  },
+  { 
+    id: 3, 
+    name: 'Ajij ', 
+    email: 'ajij@gmail.com', 
+    password: '123456', 
+    role: 'subscriber',
+    description: ''
+  }
+]
 
 export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -18,17 +46,25 @@ export default function LoginPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  // NEW: Function to auto-fill the form
+  const handleQuickFill = (account: typeof dummyAccounts[0]) => {
+    setName(account.name)
+    setEmail(account.email)
+    setPassword(account.password)
+    setRole(account.role)
+    setMessage('') // Clear any errors
+  }
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Explicitly check for empty fields before calling Supabase
     if (!email || !password || !name) {
       setMessage('Please enter your name, email, and password.')
       return
     }
     
     setLoading(true)
-    setMessage('') // Clear any old messages
+    setMessage('') 
     
     const { error, data } = await supabase.auth.signUp({
       email,
@@ -43,12 +79,11 @@ export default function LoginPage() {
     if (error) {
       setMessage(error.message)
     } else {
-      // Create initial profile record with the name AND selected role
       if (data.user) {
          await supabase.from('profiles').insert([
            { 
              id: data.user.id, 
-             role: role, // 'public', 'subscriber', or 'admin'
+             role: role, 
              subscription_status: 'inactive',
              full_name: name
            }
@@ -62,14 +97,13 @@ export default function LoginPage() {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Explicitly check for empty fields before calling Supabase
     if (!email || !password) {
       setMessage('Please enter both email and password.')
       return
     }
     
     setLoading(true)
-    setMessage('') // Clear any old messages
+    setMessage('') 
     
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
@@ -80,7 +114,6 @@ export default function LoginPage() {
     setLoading(false)
   }
 
-  // Animation variants
   const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 80, damping: 20 } }
@@ -92,10 +125,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-rose-200 selection:text-rose-900 overflow-hidden flex items-center justify-center p-6 relative">
+    // CHANGED: Added flex-col lg:flex-row and gap-10 to create a side-by-side layout
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-rose-200 selection:text-rose-900 overflow-hidden flex flex-col lg:flex-row items-center justify-center gap-10 p-6 relative">
       
       {/* Soft Animated Mesh Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none fixed">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,var(--tw-gradient-stops))] from-indigo-100 via-slate-50 to-rose-50 opacity-80" />
         <motion.div 
           animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0], opacity: [0.4, 0.6, 0.4] }} 
@@ -109,7 +143,7 @@ export default function LoginPage() {
         />
       </div>
 
-      {/* Glassmorphism Auth Card */}
+      {/* LEFT SIDE: Glassmorphism Auth Card */}
       <motion.div 
         initial="hidden" animate="visible" variants={staggerContainer}
         className="relative z-10 w-full max-w-md bg-white/60 backdrop-blur-2xl border border-white p-8 md:p-10 rounded-[3rem] shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
@@ -167,7 +201,6 @@ export default function LoginPage() {
                       <option value="subscriber">Subscriber</option>
                       <option value="admin">Admin</option>
                     </select>
-                    {/* Custom Dropdown Arrow */}
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                       <ChevronDown className="w-5 h-5 text-slate-400" />
                     </div>
@@ -185,7 +218,7 @@ export default function LoginPage() {
               </div>
               <input
                 type="email"
-                placeholder="you@example.com"
+                placeholder="you@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-11 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium placeholder:text-slate-400"
@@ -254,6 +287,54 @@ export default function LoginPage() {
           </Link>
         </motion.div>
       </motion.div>
+
+      {/* RIGHT SIDE: Dev Mode Quick-Fill Panel */}
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 80 }}
+        className="relative z-10 w-full max-w-sm"
+      >
+        <div className="bg-white/40 backdrop-blur-xl border border-white/50 p-6 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
+              <Zap className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900">Dev Quick-Fill</h3>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Testing Accounts</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            {dummyAccounts.map((account) => (
+              <button
+                key={account.id}
+                onClick={() => handleQuickFill(account)}
+                className="w-full text-left bg-white/70 hover:bg-white p-4 rounded-2xl border border-white hover:border-indigo-100 shadow-sm hover:shadow-md transition-all group flex flex-col gap-1"
+              >
+                <div className="flex justify-between items-center w-full">
+                  <span className="font-black text-slate-900 group-hover:text-indigo-600 transition-colors">
+                    {account.name}
+                  </span>
+                  <span className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider ${
+                    account.role === 'admin' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {account.role}
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-slate-500">{account.email}</span>
+                <span className="text-xs text-slate-400 mt-1">{account.description}</span>
+              </button>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-slate-400 font-medium mt-6">
+            Clicking a card fills the form.<br/>You still need to press the Sign In/Create button.
+          </p>
+        </div>
+      </motion.div>
+
     </div>
   )
 }
