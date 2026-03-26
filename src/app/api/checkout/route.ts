@@ -24,7 +24,12 @@ export async function POST(req: Request) {
       mode: 'subscription',
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?canceled=true`,
-      client_reference_id: userId, // CRUCIAL: Links the Stripe payment to our Supabase user
+      client_reference_id: userId, 
+      subscription_data: {
+        metadata: {
+          userId: userId, 
+        },
+      },
     });
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
