@@ -8,11 +8,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   try {
     const { priceId, userId } = await req.json();
-
+console.log("🟠 A. /api/checkout route hit!");
     if (!priceId || !userId) {
+      console.log("🔴 D. No user found. Must be logged in.");
       return NextResponse.json({ error: 'Missing priceId or userId' }, { status: 400 });
     }
-
+console.log("🟠 B. Received Price ID:", priceId);
+console.log("🟠 C. Base URL is:", process.env.NEXT_PUBLIC_BASE_URL);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -31,9 +33,10 @@ export async function POST(req: Request) {
         },
       },
     });
-
+console.log("🟢 E. Session created successfully!");
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error: any) {
+    console.error("🔴 F. Stripe/Backend Error:", error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

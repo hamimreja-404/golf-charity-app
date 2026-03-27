@@ -94,7 +94,7 @@ export default function Dashboard() {
     const priceId = planType === "monthly"
         ? process.env.NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID
         : process.env.NEXT_PUBLIC_STRIPE_YEARLY_PRICE_ID;
-
+console.log("🔵 1. Button clicked! Price ID:", priceId);
     // BUGFIX: Alert the user if the env variables are missing
     if (!priceId) {
       alert(`Error: Stripe ${planType} Price ID is missing from your .env.local file!`);
@@ -108,16 +108,20 @@ export default function Dashboard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ priceId, userId: profile.id }),
+        
       });
       const data = await res.json();
+      console.log("🔵 3. Checkout response:", data);
       if (data.url) {
         window.location.href = data.url;
       } else {
         alert(data.error || "Failed to start checkout");
         setCheckoutLoading(null);
       }
+      console.log("🟢 3. Success! Redirecting to Stripe URL:", data.url);
     } catch (err) {
       console.error(err);
+      console.log(" 3.Error! :");
       setCheckoutLoading(null);
     }
   };
