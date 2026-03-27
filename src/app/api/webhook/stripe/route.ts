@@ -43,18 +43,18 @@ export async function POST(req: Request) {
 
     if (userId && stripeSubscriptionId) {
       try {
-        const subscription = await stripe.subscriptions.retrieve(stripeSubscriptionId);
+        const subscription = (await stripe.subscriptions.retrieve(stripeSubscriptionId)) as Stripe.Subscription;
 
         console.log("🟡 Raw Subscription Status:", subscription.status);
-        console.log("🟡 Raw Period End:", subscription.current_period_end);
+        console.log("🟡 Raw Period End:", (subscription as any).current_period_end);
 
         // 👇 SAFE DATE CALCULATION 👇
         // Fallback to today's date + 30 days just in case Stripe sends undefined
         let endDateIso = new Date(new Date().setDate(new Date().getDate() + 30)).toISOString(); 
         
-        if (subscription.current_period_end) {
+        if ((subscription as any).current_period_end) {
           // If Stripe gave us a good number, use it!
-          endDateIso = new Date(subscription.current_period_end * 1000).toISOString();
+          endDateIso = new Date((subscription as any).current_period_end * 1000).toISOString();
         }
 
         const { error } = await supabaseAdmin
@@ -82,18 +82,27 @@ export async function POST(req: Request) {
   // =====================================================================
   // SCENARIO 2: Future Renewals or Cancellations
   // =====================================================================
+// =====================================================================
+  // SCENARIO 2: Future Renewals or Cancellations
+  // =====================================================================
   if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
     const subscription = event.data.object as Stripe.Subscription;
     const stripeSubscriptionId = subscription.id;
 
     console.log(`🔵 Subscription ${subscription.status} update detected!`);
 
+    // 👇 SAFE DATE CALCULATION (Added to Scenario 2!) 👇
+    let endDateIso = new Date(new Date().setDate(new Date().getDate() + 30)).toISOString(); 
+    if ((subscription as any).current_period_end) {
+      endDateIso = new Date((subscription as any).current_period_end * 1000).toISOString();
+    }
+
     // Notice we don't need the userId here. We update based on the Stripe Subscription ID we saved during checkout.
     const { error } = await supabaseAdmin
       .from('profiles')
       .update({
         subscription_status: subscription.status,
-        current_period_end: new Date(subscription.current_period_end! * 1000).toISOString(),
+        current_period_end: endDateIso, // <-- Using the safe date here now!
       })
       .eq('stripe_subscription_id', stripeSubscriptionId);
 
@@ -103,3 +112,4 @@ export async function POST(req: Request) {
 
   return new NextResponse(null, { status: 200 });
 }
+
