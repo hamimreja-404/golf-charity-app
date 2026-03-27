@@ -13,6 +13,7 @@ console.log("🟠 A. /api/checkout route hit!");
       console.log("🔴 D. No user found. Must be logged in.");
       return NextResponse.json({ error: 'Missing priceId or userId' }, { status: 400 });
     }
+    
 console.log("🟠 B. Received Price ID:", priceId);
 console.log("🟠 C. Base URL is:", process.env.NEXT_PUBLIC_BASE_URL);
     const session = await stripe.checkout.sessions.create({
@@ -27,6 +28,9 @@ console.log("🟠 C. Base URL is:", process.env.NEXT_PUBLIC_BASE_URL);
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?canceled=true`,
       client_reference_id: userId, 
+      metadata: {
+        userId: userId,
+      },
       subscription_data: {
         metadata: {
           userId: userId, 

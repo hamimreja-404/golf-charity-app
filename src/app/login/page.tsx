@@ -89,7 +89,7 @@ export default function LoginPage() {
            }
          ])
       }
-      setMessage('Check your email for the confirmation link! (Or sign in if confirmation is disabled)')
+      setMessage('Now You Can Log In!')
     }
     setLoading(false)
   }
